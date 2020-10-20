@@ -16,9 +16,14 @@ import {
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import { RootNavigator } from './app/screen/MainScreen';
-
 import SplashScreen from "react-native-splash-screen";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+
+import AppScreen from './app/screen/AppScreen';
+import AppDrawer from './app/component/AppDrawer';
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
 
@@ -30,7 +35,9 @@ const App = () => {
     <>
       <PaperProvider>
         <NavigationContainer>
-          <RootNavigator />
+          <Drawer.Navigator edgeWidth={100} drawerContent={() => <AppDrawer />}>
+            <Drawer.Screen name="Home" component={AppScreen} />
+          </Drawer.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </>

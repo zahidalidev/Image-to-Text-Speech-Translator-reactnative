@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "native-base";
 import { Drawer } from "react-native-paper";
 
-function AppDrawer(props) {
+function AppDrawer({ onHandleDrawer }) {
     const [active, setActive] = React.useState('');
 
     return (
@@ -11,7 +11,10 @@ function AppDrawer(props) {
                 style={{ backgroundColor: "red" }}
                 label="Scan Doc"
                 active={active === 'first'}
-                onPress={() => setActive("first")}
+                onPress={() => {
+                    setActive("first")
+                    onHandleDrawer();
+                }}
             />
             <Drawer.Item
                 label="Read Text"
