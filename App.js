@@ -19,7 +19,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from "react-native-splash-screen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import { useWindowDimensions } from 'react-native';
 
 import HomeScreen from './app/screen/HomeScreen';
 import AppDrawer from './app/component/AppDrawer';
@@ -29,6 +29,7 @@ const Stack = createDrawerNavigator();
 
 class App extends Component {
 
+
   componentDidMount = () => {
     SplashScreen.hide();
   }
@@ -37,7 +38,16 @@ class App extends Component {
     return (
       <>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home" >
+          <Stack.Navigator initialRouteName="Home"
+            drawerType={"front"}
+            drawerStyle={{ width: '45%' }}
+            overlayColor="transparent"
+            edgeWidth={100}
+            drawerStyle={{
+              backgroundColor: '#c6cbef',
+            }}
+            drawerContent={(props) => <AppDrawer {...props} />}
+          >
 
             {/* Two Method to navigate to components */}
             <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
