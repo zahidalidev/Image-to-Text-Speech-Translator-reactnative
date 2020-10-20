@@ -22,9 +22,7 @@ class HomeScreen extends Component {
                 <SafeAreaView>
                     <AppBar />
                     <View>
-                        <Text>
-                            Home Screen
-                        </Text>
+                        <Button title="Home Screen" onPress={() => this.props.navigation.navigate('DetailScreen')} />
                     </View>
                 </SafeAreaView>
             </>
