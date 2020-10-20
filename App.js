@@ -39,9 +39,7 @@ class App extends Component {
         <NavigationContainer>
           <Stack.Navigator edgeWidth={100} drawerContent={() => <AppDrawer />}>
 
-            <Stack.Screen name="Home">
-              {props => <HomeScreen {...props} />}
-            </Stack.Screen>
+            <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
 
             <Stack.Screen name="DetailScreen" options={{ title: 'Home Screen' }} component={DetailScreen} />
 
