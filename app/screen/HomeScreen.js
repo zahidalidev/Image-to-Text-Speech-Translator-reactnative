@@ -20,10 +20,8 @@ class HomeScreen extends Component {
             <>
                 <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
                 <SafeAreaView>
-                    <AppBar />
-                    <View>
-                        <Button title="Home Screen" onPress={() => this.props.navigation.navigate('DetailScreen')} />
-                    </View>
+                    <AppBar navigation={this.props.navigation} />
+                    {/* body if home screen */}
                 </SafeAreaView>
             </>
         );

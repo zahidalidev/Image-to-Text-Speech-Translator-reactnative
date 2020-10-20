@@ -6,13 +6,15 @@ import AppDrawer from "./AppDrawer";
 
 import colors from "../config/colors";
 
-const AppBar = (props) => {
+const AppBar = ({ navigation }) => {
 
     const [searchQuery, setSearchQuery] = React.useState('');
     const [showSearch, setShowSearch] = React.useState(false);
     const [showAppBar, setShowAppBar] = React.useState(true);
 
-    const handleMenu = () => console.log('Searching');
+    const handleMenu = () => {
+        navigation.openDrawer();
+    };
     const handleMore = () => console.log('Shown more');
     const handleSearch = () => console.log('Searching');
     const onChangeSearch = query => setSearchQuery(query);
