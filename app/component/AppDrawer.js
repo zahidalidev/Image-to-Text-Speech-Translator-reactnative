@@ -31,7 +31,7 @@ function AppDrawer({ navigation }) {
             />
             <Drawer.Item
                 label="Listen"
-                icon="account-voice"
+                icon="volume-high"
                 active={active === 'third'}
                 onPress={() => navigation.navigate("ReadTextScreen")}
 

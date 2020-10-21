@@ -54,7 +54,7 @@ class HomeScreen extends Component {
                                 style={styles.circleButton}
                                 onPress={() => this.setModalVisible(true)}
                             >
-                                <Icon name={"plus"} size={30} color={colors.primary} />
+                                <Icon name={modalVisible ? "times" : "plus"} size={30} color={colors.primary} />
                             </TouchableOpacity>
 
                         </View>
@@ -76,7 +76,7 @@ class HomeScreen extends Component {
                                             style={styles.circleButtonSmall}
                                             onPress={() => this.setModalVisible(false)}
                                         >
-                                            <IconM name={"account-voice"} size={30} color={colors.secondry} />
+                                            <IconM name={"volume-high"} size={30} color={colors.secondry} />
                                         </TouchableOpacity>
 
                                     </View>
