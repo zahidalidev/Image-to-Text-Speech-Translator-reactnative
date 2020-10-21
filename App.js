@@ -23,7 +23,9 @@ import { useWindowDimensions } from 'react-native';
 
 import HomeScreen from './app/screen/HomeScreen';
 import AppDrawer from './app/component/AppDrawer';
-import DetailScreen from './app/screen/DetailScreen';
+import ReadTextScreen from './app/screen/ReadTextScreen';
+import TranslateScreen from './app/screen/TranslateScreen';
+import colors from './app/config/colors';
 
 const Stack = createDrawerNavigator();
 
@@ -40,18 +42,19 @@ class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home"
             drawerType={"front"}
-            drawerStyle={{ width: '45%' }}
             overlayColor="transparent"
             edgeWidth={100}
             drawerStyle={{
-              backgroundColor: '#c6cbef',
+              backgroundColor: colors.white,
+              width: "75%"
             }}
             drawerContent={(props) => <AppDrawer {...props} />}
           >
 
             {/* Two Method to navigate to components */}
             <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
-            <Stack.Screen name="DetailScreen" options={{ title: "DetailScreen" }} component={DetailScreen} />
+            <Stack.Screen name="ReadTextScreen" options={{ title: "ReadTextScreen" }} component={ReadTextScreen} />
+            <Stack.Screen name="TranslateScreen" options={{ title: "TranslateScreen" }} component={TranslateScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </>
