@@ -3,18 +3,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import IconF from "react-native-vector-icons/Feather";
 import IconE from "react-native-vector-icons/Entypo";
-import { Content, List, ListItem } from 'native-base';
+import { ListItem } from 'native-base';
 import { Divider } from "react-native-paper";
-import {
-    SafeAreaView, StyleSheet, StatusBar, Button, View, Text,
-    TouchableOpacity, TouchableHighlight, Modal, Alert
-} from 'react-native';
-
+import { SafeAreaView, StyleSheet, StatusBar, View, Text, TouchableOpacity, Modal } from 'react-native';
 
 import AppBar from '../component/AppBar';
 import colors from '../config/colors';
-import { color } from 'react-native-reanimated';
-
 
 
 class HomeScreen extends Component {
