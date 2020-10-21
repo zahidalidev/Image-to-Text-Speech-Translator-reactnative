@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.3,
         borderBottomColor: colors.lightGray,
         right: 20,
-        // borderRadius: 95
     }
 })
 export default AppBar;

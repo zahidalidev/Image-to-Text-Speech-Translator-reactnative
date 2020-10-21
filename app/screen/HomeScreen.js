@@ -1,5 +1,9 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
+import Icon from "react-native-vector-icons/FontAwesome";
+import IconM from "react-native-vector-icons/MaterialCommunityIcons";
+import IconF from "react-native-vector-icons/Feather";
+import IconE from "react-native-vector-icons/Entypo";
+// import { ListItem } from 'react-native-elements'
 import {
     SafeAreaView, StyleSheet, StatusBar, Button, View, Text,
     TouchableOpacity, TouchableHighlight, Modal, Alert
@@ -8,103 +12,231 @@ import {
 
 import AppBar from '../component/AppBar';
 import colors from '../config/colors';
+import { Content, List, ListItem } from 'native-base';
 
 
 
 class HomeScreen extends Component {
     state = {
-        modalVisible: false
+        modalVisible: false,
+        cameraModelVisible: false,
     };
 
-    setModalVisible = (visible) => {
-        this.setState({ modalVisible: visible });
+    setModalVisible = (modalVisible) => {
+        this.setState({ modalVisible });
+    }
+
+    setCameraModelVisible = (cameraModelVisible) => {
+        this.setState({ cameraModelVisible })
     }
 
     render() {
-        const { modalVisible } = this.state;
+        const { modalVisible, cameraModelVisible } = this.state;
         return (
-            <>
+            <View style={styles.mainContainer}>
+
+                {/* Status Bar */}
                 <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
-                <SafeAreaView>
-                    <AppBar navigation={this.props.navigation} />
-                    {/* body if home screen */}
 
-                    {/* down circle btton*/}
-                    <TouchableOpacity
-                        style={{
-                            borderWidth: 1,
-                            borderColor: 'rgba(0,0,0,0.2)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 100,
-                            height: 100,
-                            backgroundColor: '#fff',
-                            borderRadius: 50,
-                        }}
-                        onPress={() => this.setModalVisible(true)}
-                    >
-                        {/* <Icon name={"chevron-right"} size={30} color="#01a699" /> */}
-                    </TouchableOpacity>
+                <SafeAreaView style={styles.safeContainer} >
+
+                    {/* App Bar */}
+                    <View>
+                        <AppBar navigation={this.props.navigation} />
+                    </View>
 
 
-                    <View style={styles.centeredView}>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
-                            }}
-                        >
-                            <View style={styles.centeredView}>
-                                <Text>hi</Text>
-                            </View>
-                        </Modal>
+                    {/* bottom circle btton*/}
+                    <View style={styles.bottomBarContainer} >
+
+                        <View style={styles.circleContainer} >
+                            <TouchableOpacity
+                                style={styles.circleButton}
+                                onPress={() => this.setModalVisible(true)}
+                            >
+                                <Icon name={"plus"} size={30} color={colors.primary} />
+                            </TouchableOpacity>
+
+                        </View>
+
+
+                        {/* Popup model buttons (camera, voice and reading) */}
+                        <View style={styles.centeredView}>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                            // onRequestClose={() => {
+                            //     Alert.alert("Modal has been closed.");
+                            // }}
+                            >
+                                <View style={styles.bottomCenterPopup}>
+                                    <View style={styles.circleContainerLeft} >
+                                        <TouchableOpacity
+                                            style={styles.circleButtonSmall}
+                                            onPress={() => this.setModalVisible(false)}
+                                        >
+                                            <IconM name={"account-voice"} size={30} color={colors.secondry} />
+                                        </TouchableOpacity>
+
+                                    </View>
+                                    <View style={styles.circleContainerCenter} >
+                                        <TouchableOpacity
+                                            style={styles.circleButtonSmall}
+                                            onPress={() => {
+                                                this.setCameraModelVisible(true)
+                                                this.setModalVisible(false)
+                                            }}
+                                        >
+                                            <Icon name={"camera"} size={30} color={colors.secondry} />
+                                        </TouchableOpacity>
+
+                                    </View>
+                                    <View style={styles.circleContainerRight} >
+                                        <TouchableOpacity
+                                            style={styles.circleButtonSmall}
+                                            onPress={() => this.setModalVisible(false)}
+                                        >
+                                            <IconM name={"translate"} size={30} color={colors.secondry} />
+                                        </TouchableOpacity>
+
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+
+
+                        {/* camera and gallery popuup */}
+                        <View style={styles.centeredView}>
+                            <Modal
+                                animationType="fade"
+                                transparent={true}
+                                visible={cameraModelVisible}
+                            >
+                                <View style={styles.bottomCenterPopup}>
+
+                                    <View style={styles.cardContainer} >
+                                        <ListItem >
+                                            <IconF name="camera" size={30} />
+                                            <Text style={styles.listHeading} >Choose what action to take</Text>
+                                        </ListItem>
+
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setCameraModelVisible(false)
+                                            }}
+                                        >
+                                            <View style={{ flexDirection: "row", padding: 15 }} >
+                                                <Icon name={"camera"} size={20} color={colors.primary} />
+                                                <Text style={{ marginLeft: 15 }} >Camera</Text>
+                                            </View>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setCameraModelVisible(false)
+                                            }}
+                                        >
+                                            <View style={{ flexDirection: "row", padding: 15 }} >
+                                                <IconE name={"images"} size={20} color={colors.primary} />
+                                                <Text style={{ marginLeft: 15 }} >Gallery</Text>
+                                            </View>
+                                        </TouchableOpacity>
+
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
                     </View>
                 </SafeAreaView>
-            </>
+            </View >
         );
     }
 };
 
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 3,
+
+    },
+
+    safeContainer: {
+        flex: 3,
+    },
+
+    bottomBarContainer: {
+        flex: 3,
+        flexDirection: 'column-reverse',
+        alignItems: 'center',
+        marginBottom: 40
+    },
+
+    circleContainer: {
+
+    },
+
+    circleButton: {
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 90,
+        height: 90,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+    },
+
     centeredView: {
         flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginBottom: 230
+    },
+
+    bottomCenterPopup: {
+        flex: 1,
+        flexDirection: "row",
         justifyContent: "center",
+        alignItems: "flex-end",
+        marginBottom: 200
+    },
+
+    circleButtonSmall: {
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 80,
+        height: 80,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+    },
+
+    circleContainerLeft: {
+        marginBottom: -40
+    },
+
+    circleContainerCenter: {
+
+    },
+
+    circleContainerRight: {
+        marginBottom: -40
+    },
+
+    cardContainer: {
+        width: 300,
+        height: 165,
         alignItems: "center",
-        marginTop: 22
+        backgroundColor: colors.white
     },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
+
+    listHeading: {
+        fontSize: 20,
+        fontWeight: "600",
+        marginLeft: 10
     },
-    openButton: {
-        backgroundColor: "#F194FF",
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
 });
 
 
