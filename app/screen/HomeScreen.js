@@ -5,7 +5,7 @@ import IconF from "react-native-vector-icons/Feather";
 import IconE from "react-native-vector-icons/Entypo";
 import { ListItem } from 'native-base';
 import { Divider } from "react-native-paper";
-import { SafeAreaView, StyleSheet, StatusBar, View, Text, TouchableOpacity, Modal } from 'react-native';
+import { SafeAreaView, StyleSheet, StatusBar, View, Text, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
 
 import AppBar from '../component/AppBar';
 import colors from '../config/colors';
@@ -65,6 +65,10 @@ class HomeScreen extends Component {
                             //     Alert.alert("Modal has been closed.");
                             // }}
                             >
+                                <TouchableWithoutFeedback onPress={() => this.setModalVisible(false)} >
+                                    <View style={styles.modalOverlay} />
+                                </TouchableWithoutFeedback>
+
                                 <View style={styles.bottomCenterPopup}>
                                     <View style={styles.circleContainerLeft} >
                                         <TouchableOpacity
@@ -108,6 +112,10 @@ class HomeScreen extends Component {
                                 transparent={true}
                                 visible={cameraModelVisible}
                             >
+                                <TouchableWithoutFeedback onPress={() => this.setCameraModelVisible(false)} >
+                                    <View style={styles.modalOverlay} />
+                                </TouchableWithoutFeedback>
+
                                 <View style={styles.bottomCenterPopup}>
 
                                     <View style={styles.cardContainer} >
@@ -153,9 +161,17 @@ class HomeScreen extends Component {
 
 
 const styles = StyleSheet.create({
+    // to hide the overlay model
+    modalOverlay: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
+
     mainContainer: {
         flex: 3,
-
     },
 
     safeContainer: {
