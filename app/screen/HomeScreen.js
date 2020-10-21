@@ -3,7 +3,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import IconF from "react-native-vector-icons/Feather";
 import IconE from "react-native-vector-icons/Entypo";
-// import { ListItem } from 'react-native-elements'
+import { Content, List, ListItem } from 'native-base';
+import { Divider } from "react-native-paper";
 import {
     SafeAreaView, StyleSheet, StatusBar, Button, View, Text,
     TouchableOpacity, TouchableHighlight, Modal, Alert
@@ -12,7 +13,7 @@ import {
 
 import AppBar from '../component/AppBar';
 import colors from '../config/colors';
-import { Content, List, ListItem } from 'native-base';
+import { color } from 'react-native-reanimated';
 
 
 
@@ -51,7 +52,7 @@ class HomeScreen extends Component {
 
                         <View style={styles.circleContainer} >
                             <TouchableOpacity
-                                style={styles.circleButton}
+                                style={[styles.circleButton, styles.shadowEffect]}
                                 onPress={() => this.setModalVisible(true)}
                             >
                                 <Icon name={modalVisible ? "times" : "plus"} size={30} color={colors.primary} />
@@ -73,7 +74,7 @@ class HomeScreen extends Component {
                                 <View style={styles.bottomCenterPopup}>
                                     <View style={styles.circleContainerLeft} >
                                         <TouchableOpacity
-                                            style={styles.circleButtonSmall}
+                                            style={[styles.circleButtonSmall, styles.shadowEffect]}
                                             onPress={() => this.setModalVisible(false)}
                                         >
                                             <IconM name={"volume-high"} size={30} color={colors.secondry} />
@@ -82,7 +83,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.circleContainerCenter} >
                                         <TouchableOpacity
-                                            style={styles.circleButtonSmall}
+                                            style={[styles.circleButtonSmall, styles.shadowEffect]}
                                             onPress={() => {
                                                 this.setCameraModelVisible(true)
                                                 this.setModalVisible(false)
@@ -94,7 +95,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.circleContainerRight} >
                                         <TouchableOpacity
-                                            style={styles.circleButtonSmall}
+                                            style={[styles.circleButtonSmall, styles.shadowEffect]}
                                             onPress={() => this.setModalVisible(false)}
                                         >
                                             <IconM name={"translate"} size={30} color={colors.secondry} />
@@ -131,6 +132,8 @@ class HomeScreen extends Component {
                                                 <Text style={{ marginLeft: 15 }} >Camera</Text>
                                             </View>
                                         </TouchableOpacity>
+
+                                        <Divider style={{ height: 1, backgroundColor: colors.lightGray, width: 130 }} />
 
                                         <TouchableOpacity
                                             onPress={() => {
@@ -187,6 +190,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
 
+
     centeredView: {
         flex: 1,
         justifyContent: "flex-end",
@@ -237,6 +241,14 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         marginLeft: 10
     },
+
+    shadowEffect: {
+        shadowColor: 'rgba(0 ,0 ,0 , .4)', // IOS
+        shadowOffset: { height: 1, width: 1 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 1, //IOS
+        elevation: 5, // Android
+    }
 });
 
 
