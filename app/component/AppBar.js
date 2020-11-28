@@ -28,6 +28,7 @@ const AppBar = ({ navigation }) => {
         <>
             {showAppBar && <Appbar.Header style={styles.container} >
                 <Appbar.Action size={30} icon="menu" onPress={handleMenu} />
+                {/* <Icon name={"share-alt"} size={30} color={colors.primary} /> */}
                 <Appbar.Content titleStyle={{ fontSize: 30 }} title="Doc OCR" />
 
                 <Appbar.Action size={30} icon="magnify" onPress={() => {

@@ -127,6 +127,7 @@ class HomeScreen extends Component {
                                         <TouchableOpacity
                                             onPress={() => {
                                                 this.setCameraModelVisible(false)
+                                                this.props.navigation.navigate('CameraScreen')
                                             }}
                                         >
                                             <View style={{ flexDirection: "row", padding: 15 }} >

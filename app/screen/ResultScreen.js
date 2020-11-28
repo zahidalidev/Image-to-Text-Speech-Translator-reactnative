@@ -15,7 +15,7 @@ class ResultScreen extends Component {
         const { image } = this.state;
         return (
             <View style={styles.container}>
-                <Image style={{ width: 200, height: 350 }} source={image} />
+                {/* <Image style={{ width: 200, height: 350 }} source={image} /> */}
                 <Text>Result Screen</Text>
             </View>
         );

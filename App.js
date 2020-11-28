@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="CameraScreen"
+          <Stack.Navigator initialRouteName="Home"
             drawerType={"front"}
             overlayColor="transparent"
             edgeWidth={100}
