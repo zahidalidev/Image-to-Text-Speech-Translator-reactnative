@@ -27,6 +27,7 @@ import ReadTextScreen from './app/screen/ReadTextScreen';
 import TranslateScreen from './app/screen/TranslateScreen';
 import CameraScreen from './app/screen/CameraScreen/CameraScreen';
 import colors from './app/config/colors';
+import ResultScreen from './app/screen/ResultScreen';
 
 const Stack = createDrawerNavigator();
 
@@ -55,6 +56,7 @@ class App extends Component {
             {/* Two Method to navigate to components */}
             <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} />}</Stack.Screen>
+            <Stack.Screen name="ResultScreen">{(props) => <ResultScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ReadTextScreen" options={{ title: "ReadTextScreen" }} component={ReadTextScreen} />
             <Stack.Screen name="TranslateScreen" options={{ title: "TranslateScreen" }} component={TranslateScreen} />
           </Stack.Navigator>

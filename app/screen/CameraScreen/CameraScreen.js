@@ -9,13 +9,19 @@ export default class CameraScreen extends Component {
 
     onBottomButtonPressed = async (event) => {
         const captureImages = JSON.stringify(event.captureImages);
-        console.log(captureImages)
+        this.props.navigation.navigate('ResultScreen', { data: captureImages })
+        // this.props.navigation.navigate('ResultScreen', {
+        //     screen: 'ResultScreen',
+        //     params: { user: 'jane' },
+        // })
         // Alert.alert(
         //     `${event.type} button pressed`,
         //     `${captureImages}`,
         //     [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
         //     { cancelable: false },
         // );
+
+
     }
 
     componentDidMount = async () => {
@@ -57,9 +63,9 @@ export default class CameraScreen extends Component {
             );
 
             if (granted === PermissionsAndroid.RESULTS.GRANTED && granted2 === PermissionsAndroid.RESULTS.GRANTED && granted3 === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the App");
+                console.log("You can use the App 🤗");
             } else {
-                console.log("Permission denied");
+                console.log("Permission denied 😳");
             }
         } catch (err) {
             console.warn(err);
@@ -71,10 +77,10 @@ export default class CameraScreen extends Component {
     async onCheckCameraAuthoPressed() {
         const success = await CameraKitCamera.checkDeviceCameraAuthorizationStatus();
         if (success) {
-            Alert.alert('You have permission 🤗')
+            console.log('You have permission 🤗')
         }
         else {
-            Alert.alert('No permission 😳')
+            console.log('No permission 😳')
         }
     }
     render() {
