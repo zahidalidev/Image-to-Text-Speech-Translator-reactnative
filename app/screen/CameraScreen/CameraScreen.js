@@ -5,15 +5,17 @@ import CameraKitCameraScreen from './CameraKitCameraScreen';
 import { CameraKitCamera } from "react-native-camera-kit"
 
 export default class CameraScreen extends Component {
-    onBottomButtonPressed = async (event) => {
 
+
+    onBottomButtonPressed = async (event) => {
         const captureImages = JSON.stringify(event.captureImages);
-        Alert.alert(
-            `${event.type} button pressed`,
-            `${captureImages}`,
-            [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-            { cancelable: false },
-        );
+        console.log(captureImages)
+        // Alert.alert(
+        //     `${event.type} button pressed`,
+        //     `${captureImages}`,
+        //     [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        //     { cancelable: false },
+        // );
     }
 
     componentDidMount = async () => {
@@ -21,10 +23,9 @@ export default class CameraScreen extends Component {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 {
-                    title: "Cool Photo App Camera Permission",
+                    title: "Camera Permission",
                     message:
-                        "Cool Photo App needs access to your camera " +
-                        "so you can take awesome pictures.",
+                        "DOC OCR Need Permission",
                     buttonNeutral: "Ask Me Later",
                     buttonNegative: "Cancel",
                     buttonPositive: "OK"
@@ -32,12 +33,11 @@ export default class CameraScreen extends Component {
             );
 
             const granted2 = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
                 {
-                    title: "Cool Photo App Camera Permission",
+                    title: "READ EXTERNAL STORAGE",
                     message:
-                        "Cool Photo App needs access to your camera " +
-                        "so you can take awesome pictures.",
+                        "DOC OCR Need Permission",
                     buttonNeutral: "Ask Me Later",
                     buttonNegative: "Cancel",
                     buttonPositive: "OK"
@@ -47,20 +47,19 @@ export default class CameraScreen extends Component {
             const granted3 = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
                 {
-                    title: "Cool Photo App Camera Permission",
+                    title: "WRITE EXTERNAL STORAGE",
                     message:
-                        "Cool Photo App needs access to your camera " +
-                        "so you can take awesome pictures.",
+                        "DOC OCR Need Permission",
                     buttonNeutral: "Ask Me Later",
                     buttonNegative: "Cancel",
                     buttonPositive: "OK"
                 }
             );
 
-            if (granted3 === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the camera");
+            if (granted === PermissionsAndroid.RESULTS.GRANTED && granted2 === PermissionsAndroid.RESULTS.GRANTED && granted3 === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log("You can use the App");
             } else {
-                console.log("Camera permission denied");
+                console.log("Permission denied");
             }
         } catch (err) {
             console.warn(err);
@@ -79,10 +78,6 @@ export default class CameraScreen extends Component {
         }
     }
     render() {
-
-        CameraKitCamera.requestDeviceCameraAuthorization();
-        const isCameraAuthorized = CameraKitCamera.checkDeviceCameraAuthorizationStatus()
-        console.log("img .....................", isCameraAuthorized);
         return (
             <CameraKitCameraScreen
                 actions={{ rightButtonText: 'Done', leftButtonText: 'Cancel' }}
