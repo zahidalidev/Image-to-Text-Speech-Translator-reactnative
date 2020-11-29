@@ -26,8 +26,9 @@ import AppDrawer from './app/component/AppDrawer';
 import ReadTextScreen from './app/screen/ReadTextScreen';
 import TranslateScreen from './app/screen/TranslateScreen';
 import CameraScreen from './app/screen/CameraScreen/CameraScreen';
-import colors from './app/config/colors';
 import ResultScreen from './app/screen/ResultScreen';
+import GalleryScreen from './app/screen/GalleryScreen';
+import colors from './app/config/colors';
 
 const Stack = createDrawerNavigator();
 
@@ -42,7 +43,7 @@ class App extends Component {
     return (
       <>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home"
+          <Stack.Navigator initialRouteName="GalleryScreen"
             drawerType={"front"}
             overlayColor="transparent"
             edgeWidth={100}
@@ -57,6 +58,7 @@ class App extends Component {
             <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ResultScreen">{(props) => <ResultScreen {...props} />}</Stack.Screen>
+            <Stack.Screen name="GalleryScreen">{(props) => <GalleryScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ReadTextScreen" options={{ title: "ReadTextScreen" }} component={ReadTextScreen} />
             <Stack.Screen name="TranslateScreen" options={{ title: "TranslateScreen" }} component={TranslateScreen} />
           </Stack.Navigator>
