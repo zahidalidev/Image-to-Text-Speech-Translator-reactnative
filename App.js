@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Component } from 'react';
 import {
   SafeAreaView,
@@ -20,6 +20,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import SplashScreen from "react-native-splash-screen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
+import ImagePicker from "react-native-image-picker";
 
 import HomeScreen from './app/screen/HomeScreen';
 import AppDrawer from './app/component/AppDrawer';
@@ -31,18 +32,73 @@ import colors from './app/config/colors';
 
 const Stack = createDrawerNavigator();
 
+
+const options = {
+  title: 'Choose Option',
+  takePhotoButtonTitle: 'Take Using Camera',
+  chooseFromLibraryButtonTitle: 'Select From Gallery',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+  quality: 1, maxWidth: 3072, maxHeight: 3072
+
+};
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.child = React.createRef();
+  state = {
+    image: null,
   }
+
 
   componentDidMount = () => {
     SplashScreen.hide();
   }
 
-  getImg = (selection) => {
-    this.child.current.getImage();
+  imagePickerBody = (response) => {
+    // Same code as in above section!
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+      this.props.navigation.navigate('Home')
+    }
+    else if (response.error) {
+      console.log('Image Picker Error: ', response.error);
+    }
+
+    else {
+      // let source = { uri: response.uri };
+      this.setState({ image: response })
+
+      // You can also display the image using data:
+      // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+      // response['uri'] = response.path;
+      // response['name'] = response.fileName;
+
+      // this.setState({
+      //     avatarSource: source,
+      //     pic: response,
+      //     loading: true
+      // });
+
+      // this.uploadOnCloudinary(response)
+    }
+  }
+
+  getImg = (selection, navigation) => {
+    console.log("selec")
+
+    if (selection === "camera") {
+      ImagePicker.launchCamera(options, (response) => {
+        this.imagePickerBody(response)
+      });
+    } else {
+      ImagePicker.launchImageLibrary(options, (response) => {
+        this.imagePickerBody(response)
+      });
+    }
+
+    navigation.navigate('ResultScreen')
   }
 
   render() {
@@ -62,7 +118,7 @@ class App extends Component {
 
             {/* Two Method to navigate to components */}
             <Stack.Screen name="Home">{(props) => <HomeScreen {...props} onGetImg={this.getImg} />}</Stack.Screen>
-            <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} ref={this.child} />}</Stack.Screen>
+            <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ResultScreen">{(props) => <ResultScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ReadTextScreen" options={{ title: "ReadTextScreen" }} component={ReadTextScreen} />
             <Stack.Screen name="TranslateScreen" options={{ title: "TranslateScreen" }} component={TranslateScreen} />

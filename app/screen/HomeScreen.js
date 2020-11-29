@@ -130,7 +130,7 @@ class HomeScreen extends Component {
 
                                                 this.props.navigation.navigate('CameraScreen')
 
-                                                this.props.onGetImg('camera')
+                                                this.props.onGetImg('camera', this.props.navigation)
                                             }}
                                         >
                                             <View style={{ flexDirection: "row", padding: 15 }} >
@@ -145,7 +145,7 @@ class HomeScreen extends Component {
                                             onPress={() => {
                                                 this.setCameraModelVisible(false)
                                                 this.props.navigation.navigate('CameraScreen')
-                                                this.props.onGetImg('gallery')
+                                                this.props.onGetImg('gallery', this.props.navigation)
                                             }}
                                         >
                                             <View style={{ flexDirection: "row", padding: 15 }} >
