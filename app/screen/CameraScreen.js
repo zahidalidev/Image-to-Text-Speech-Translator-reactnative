@@ -1,27 +1,63 @@
 import React, { Component } from 'react';
-import { Alert, PermissionsAndroid } from 'react-native';
-import CameraKitCameraScreen from './CameraKitCameraScreen';
-
+import { View, Image, PermissionsAndroid } from 'react-native';
+import ImagePicker from "react-native-image-picker";
 import { CameraKitCamera } from "react-native-camera-kit"
+
+const options = {
+    title: 'Selecciona una foto',
+    takePhotoButtonTitle: 'Take Using Camera',
+    chooseFromLibraryButtonTitle: 'Select From Gallery',
+    storageOptions: {
+        skipBackup: true,
+        path: 'images',
+    },
+    quality: 1, maxWidth: 3072, maxHeight: 3072
+
+};
+
+
+
 
 export default class CameraScreen extends Component {
 
+    state = {
+        image: null
+    }
 
-    onBottomButtonPressed = async (event) => {
-        const captureImages = JSON.stringify(event.captureImages);
-        this.props.navigation.navigate('ResultScreen', { data: captureImages })
-        // this.props.navigation.navigate('ResultScreen', {
-        //     screen: 'ResultScreen',
-        //     params: { user: 'jane' },
-        // })
-        // Alert.alert(
-        //     `${event.type} button pressed`,
-        //     `${captureImages}`,
-        //     [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-        //     { cancelable: false },
-        // );
+    // onBottomButtonPressed = async (event) => {
+    //     this.props.navigation.navigate('ResultScreen', { data: captureImages })
+    // }
 
+    getImage = () => {
+        ImagePicker.showImagePicker(options, (response) => {
+            // console.log('Response = ', response);
+            this.setState({ image: response })
+            console.log("response")
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            }
+            else if (response.error) {
+                console.log('Image Picker Error: ', response.error);
+            }
 
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                response['uri'] = response.path;
+                response['name'] = response.fileName;
+
+                // this.setState({
+                //     avatarSource: source,
+                //     pic: response,
+                //     loading: true
+                // });
+
+                // this.uploadOnCloudinary(response)
+            }
+        });
     }
 
     componentDidMount = async () => {
@@ -64,6 +100,8 @@ export default class CameraScreen extends Component {
 
             if (granted === PermissionsAndroid.RESULTS.GRANTED && granted2 === PermissionsAndroid.RESULTS.GRANTED && granted3 === PermissionsAndroid.RESULTS.GRANTED) {
                 console.log("You can use the App 🤗");
+
+                this.getImage()
             } else {
                 console.log("Permission denied 😳");
             }
@@ -85,17 +123,9 @@ export default class CameraScreen extends Component {
     }
     render() {
         return (
-            <CameraKitCameraScreen
-                actions={{ rightButtonText: 'Done', leftButtonText: 'Cancel' }}
-                onBottomButtonPressed={(event) => this.onBottomButtonPressed(event)}
-                flashImages={{
-                    on: require('../../images/flashOn.png'),
-                    off: require('../../images/flashOff.png'),
-                    auto: require('../../images/flashAuto.png'),
-                }}
-                cameraFlipImage={require('../../images/cameraFlipIcon.png')}
-                captureButtonImage={require('../../images/cameraButton.png')}
-            />
+            <View>
+                <Image style={{ width: 200, height: 350 }} source={this.state.image} />
+            </View>
         );
     }
 }
