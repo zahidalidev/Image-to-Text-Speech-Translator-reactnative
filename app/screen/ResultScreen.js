@@ -7,9 +7,8 @@ class ResultScreen extends Component {
     }
 
     componentDidMount = () => {
-        let responce = JSON.parse(this.props.route.params.data)
-        this.setState({ image: responce[0] })
-        console.log('Image', responce[0]);
+        // let responce = this.props.route.params.data;
+        // this.setState({ image: responce })
     }
     render() {
         const { image } = this.state;

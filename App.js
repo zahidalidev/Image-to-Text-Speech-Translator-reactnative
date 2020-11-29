@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Component } from 'react';
 import {
   SafeAreaView,
@@ -27,23 +27,29 @@ import ReadTextScreen from './app/screen/ReadTextScreen';
 import TranslateScreen from './app/screen/TranslateScreen';
 import CameraScreen from './app/screen/CameraScreen';
 import ResultScreen from './app/screen/ResultScreen';
-import GalleryScreen from './app/screen/GalleryScreen';
 import colors from './app/config/colors';
 
 const Stack = createDrawerNavigator();
 
 class App extends Component {
-
+  constructor(props) {
+    super(props);
+    this.child = React.createRef();
+  }
 
   componentDidMount = () => {
     SplashScreen.hide();
+  }
+
+  getImg = (selection) => {
+    this.child.current.getImage();
   }
 
   render() {
     return (
       <>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="CameraScreen"
+          <Stack.Navigator initialRouteName="Home"
             drawerType={"front"}
             overlayColor="transparent"
             edgeWidth={100}
@@ -55,10 +61,9 @@ class App extends Component {
           >
 
             {/* Two Method to navigate to components */}
-            <Stack.Screen name="Home">{(props) => <HomeScreen {...props} />}</Stack.Screen>
-            <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} />}</Stack.Screen>
-            {/* <Stack.Screen name="ResultScreen">{(props) => <ResultScreen {...props} />}</Stack.Screen>
-            <Stack.Screen name="GalleryScreen">{(props) => <GalleryScreen {...props} />}</Stack.Screen> */}
+            <Stack.Screen name="Home">{(props) => <HomeScreen {...props} onGetImg={this.getImg} />}</Stack.Screen>
+            <Stack.Screen name="CameraScreen">{(props) => <CameraScreen {...props} ref={this.child} />}</Stack.Screen>
+            <Stack.Screen name="ResultScreen">{(props) => <ResultScreen {...props} />}</Stack.Screen>
             <Stack.Screen name="ReadTextScreen" options={{ title: "ReadTextScreen" }} component={ReadTextScreen} />
             <Stack.Screen name="TranslateScreen" options={{ title: "TranslateScreen" }} component={TranslateScreen} />
           </Stack.Navigator>
