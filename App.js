@@ -55,7 +55,7 @@ class App extends Component {
     SplashScreen.hide();
   }
 
-  imagePickerBody = (response) => {
+  imagePickerBody = (response, navigation) => {
     // Same code as in above section!
     if (response.didCancel) {
       console.log('User cancelled image picker');
@@ -68,6 +68,8 @@ class App extends Component {
     else {
       // let source = { uri: response.uri };
       this.setState({ image: response })
+      navigation.navigate('ResultScreen', { data: response })
+
 
       // You can also display the image using data:
       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -90,15 +92,14 @@ class App extends Component {
 
     if (selection === "camera") {
       ImagePicker.launchCamera(options, (response) => {
-        this.imagePickerBody(response)
+        this.imagePickerBody(response, navigation)
       });
     } else {
       ImagePicker.launchImageLibrary(options, (response) => {
-        this.imagePickerBody(response)
+        this.imagePickerBody(response, navigation)
       });
     }
 
-    navigation.navigate('ResultScreen')
   }
 
   render() {

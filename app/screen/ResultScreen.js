@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-class ResultScreen extends Component {
-    state = {
-        image: ''
-    }
+function ResultScreen(props) {
 
-    componentDidMount = () => {
-        // let responce = this.props.route.params.data;
-        // this.setState({ image: responce })
-    }
-    render() {
-        const { image } = this.state;
-        return (
-            <View style={styles.container}>
-                {/* <Image style={{ width: 200, height: 350 }} source={image} /> */}
-                <Text>Result Screen</Text>
-            </View>
-        );
-    }
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        let responce = props.route.params.data;
+        setImage(responce)
+        console.log('called')
+    })
+
+    return (
+        <View style={styles.container}>
+            <Image style={{ width: 200, height: 350 }} source={image} />
+            <Text>Result Screen</Text>
+        </View>
+    );
+
 }
 
 
